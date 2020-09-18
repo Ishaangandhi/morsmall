@@ -761,7 +761,7 @@ and word_cst_double_quoted__to__word (word_cst : word_cst) : AST.word =
   List.map word_component_double_quoted__to__word word_cst
   |> List.flatten
 
-(* CST.word_component -> AST.word_component *)
+(* CST.word_component -> AST.word_component list *)
 
 and word_component__to__word = function
   | WordEmpty ->
@@ -771,6 +771,9 @@ and word_component__to__word = function
   | WordTildePrefix prefix ->
     [AST.WTildePrefix prefix]
   | WordLiteral literal ->
+    let len = String.length literal in
+    if len >= 5 && String.sub literal 0 3 = "$((" && String.sub literal (len-3) 2 = "))" 
+    then [AST.WArith (String.sub literal 3 (len-5))] else
     [AST.WLiteral literal]
   | WordAssignmentWord (Name name, Word (_, word_cst)) ->
     [AST.WLiteral name; AST.WLiteral "="]

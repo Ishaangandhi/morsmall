@@ -30,6 +30,8 @@ let rec pp_name ppf =
 (* AST.word_component *)
 
 and pp_word_component ppf = function (*FIXME*)
+  | WArith arith ->
+     fpf ppf "$((%s))" arith
   | WLiteral literal ->
      fpf ppf "%s" literal
   | WTildePrefix _ ->
