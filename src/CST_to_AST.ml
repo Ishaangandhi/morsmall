@@ -775,6 +775,8 @@ and word_component__to__word = function
     if len >= 5 && String.sub literal 0 3 = "$((" && String.sub literal (len-3) 2 = "))" 
     then [AST.WArith (String.sub literal 3 (len-5))] else
     [AST.WLiteral literal]
+  | WordArith word ->
+    [AST.WArith (word__to__word word)]
   | WordAssignmentWord (Name name, Word (_, word_cst)) ->
     [AST.WLiteral name; AST.WLiteral "="]
     @ word_cst__to__word word_cst
@@ -802,6 +804,8 @@ and word_component_double_quoted__to__word = function
     []
   | WordName literal | WordLiteral literal | WordTildePrefix literal ->
     [AST.WLiteral literal]
+  | WordArith word ->
+    [AST.WArith (word__to__word word)]
   | WordSubshell (_, program') ->
     [AST.WSubshell (program'__to__program program')]
   | WordAssignmentWord (Name name, Word (_, word_cst)) ->

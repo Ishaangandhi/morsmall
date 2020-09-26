@@ -34,6 +34,9 @@ and pp_word_component ppf = function (*FIXME*)
      fpf ppf "$((%s))" arith
   | WLiteral literal ->
      fpf ppf "%s" literal
+  | WArith _word ->
+     assert false
+   (* fpf ppf "$((%s))" word *)
   | WTildePrefix _ ->
      assert false
   | WDoubleQuoted _word ->
