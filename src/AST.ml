@@ -46,7 +46,6 @@ and word_component =
   | WTildePrefix of string
   | WLiteral of string
   | WDoubleQuoted of word
-  | WArith of word
   | WVariable of name * attribute
   | WSubshell of program
   | WGlobAll
