@@ -42,7 +42,6 @@ and attribute =
   | RemoveLargestPrefixPattern of word
 
 and word_component =
-  | WArith of string
   | WTildePrefix of string
   | WLiteral of string
   | WDoubleQuoted of word
