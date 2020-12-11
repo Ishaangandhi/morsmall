@@ -778,9 +778,12 @@ and word_component__to__word = function
     [AST.WLiteral name; AST.WLiteral "="]
     @ word_cst__to__word word_cst
   | WordSingleQuoted (Word (_, [WordLiteral literal])) ->
-    [AST.WLiteral literal]
+    (* TODO: IG, should make AST node for single quotes *)
+    let quoted_val = if literal = "" then [] else [AST.WLiteral literal] in
+    [AST.WDoubleQuoted quoted_val]
   | WordSingleQuoted (Word (_, [])) ->
-    [AST.WLiteral ""]
+    (* TODO: IG, should make AST node for single quotes *)
+    [AST.WDoubleQuoted []]
   | WordSingleQuoted _ ->
     assert false
   | WordSubshell (_, program') ->
